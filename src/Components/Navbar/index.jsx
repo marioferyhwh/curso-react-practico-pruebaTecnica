@@ -1,10 +1,14 @@
+import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 import { ShoppingCartContext } from "../../Context";
+import { LoginContext } from "../../Context/login";
 
 const Navbar = () => {
+  console.log("navbar");
   const context = useContext(ShoppingCartContext);
+  const { user } = useContext(LoginContext);
+
   const activeStyle = "underline underline-offset-4";
 
   return (
@@ -69,7 +73,18 @@ const Navbar = () => {
         </li>
       </ul>
       <ul className="flex items-center gap-3">
-        <li className="text-black/60">teff@platzi.com</li>
+        <li className="text-black/60">
+          {user?.email ? (
+            user.email
+          ) : (
+            <NavLink
+              to="/sign-in"
+              className={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              Sign In
+            </NavLink>
+          )}
+        </li>
         <li>
           <NavLink
             to="/my-orders"

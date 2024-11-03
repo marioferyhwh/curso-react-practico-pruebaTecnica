@@ -1,16 +1,17 @@
-import { createContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const LoginContext = createContext();
 
-const LoginContextProvider = ({ Children }) => {
+const LoginContextProvider = ({ children }) => {
+  console.log("loginContextProvider");
   const [user, setUser] = useState({});
-
   const LoginUser = (user) => {
     setUser(user);
-    localStorage.setItem("user", user);
+    localStorage.setItem("user", JSON.stringify(user));
   };
   const Logout = () => {
     setUser(null);
+    localStorage.setItem("user", "{}");
   };
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const LoginContextProvider = ({ Children }) => {
   }, []);
   return (
     <LoginContext.Provider value={(user, LoginUser, Logout)}>
-      {Children}
+      {children}
     </LoginContext.Provider>
   );
 };
