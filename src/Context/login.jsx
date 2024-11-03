@@ -20,7 +20,7 @@ const LoginContextProvider = ({ children }) => {
     setUser(userBase);
   }, []);
   return (
-    <LoginContext.Provider value={(user, LoginUser, Logout)}>
+    <LoginContext.Provider value={{ user, LoginUser, Logout }}>
       {children}
     </LoginContext.Provider>
   );
